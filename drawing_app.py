@@ -27,6 +27,9 @@ class DrawingApp:
         control_frame = tk.Frame(self.root)
         control_frame.pack(fill=tk.X)
 
+        control_frame2 = tk.Frame(self.root)
+        control_frame2.pack(fill=tk.X)
+
         clear_button = tk.Button(control_frame, text="Очистить", command=self.clear_canvas)
         clear_button.pack(side=tk.LEFT)
 
@@ -36,10 +39,18 @@ class DrawingApp:
         save_button = tk.Button(control_frame, text="Сохранить", command=self.save_image)
         save_button.pack(side=tk.LEFT)
 
-        self.brush_size_scale = tk.Scale(control_frame, from_=1, to=10, orient=tk.HORIZONTAL)
+        self.brush_size_scale = tk.Scale(control_frame2, from_=1, to=10, orient=tk.HORIZONTAL)
         self.brush_size_scale.pack(side=tk.LEFT)
-        self.brash_s_m = tk.OptionMenu(control_frame, self.brush_size_scale, *range(1, 11))
+
+        self.brash_s_m = tk.OptionMenu(control_frame2, self.brush_size_scale, *range(1, 11))
         self.brash_s_m.pack(side=tk.LEFT)
+
+        self.eraser_button = tk.Button(control_frame2, text="Ластик", command=self.eraser )
+        self.eraser_button.pack(side=tk.LEFT)
+
+        self.brash_button = tk.Button(control_frame2, text="Кисть", command=self.drawing)
+        self.brash_button.pack_forget()
+
 
     def paint(self, event):
         if self.last_x and self.last_y:
@@ -70,6 +81,26 @@ class DrawingApp:
                 file_path += '.png'
             self.image.save(file_path)
             messagebox.showinfo("Информация", "Изображение успешно сохранено!")
+
+    def eraser(self):
+        '''
+        Метод вызывается при нажатии на кнопку "Ластик"
+        '''
+        self.previous_color = self.pen_color
+        self.previous_size_brash = self.brush_size_scale.get()
+        self.pen_color = "white"
+        self.brash_button.pack(side=tk.LEFT)
+        self.eraser_button.pack_forget()
+
+    def drawing(self):
+        '''
+        Метод вызывается при нажатии на кнопку "Кисть"
+        '''
+        self.pen_color = self.previous_color
+        self.brush_size_scale.set(self.previous_size_brash)
+        self.eraser_button.pack(side=tk.LEFT)
+        self.brash_button.pack_forget()
+
 
 
 def main():
