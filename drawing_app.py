@@ -21,9 +21,13 @@ class DrawingApp:
 
         self.canvas.bind('<B1-Motion>', self.paint)
         self.canvas.bind('<ButtonRelease-1>', self.reset)
+        self.canvas.bind('<Button-3>', self.pick_color)
 
 
     def setup_ui(self):
+        '''
+        Инициализация графического интерфейса
+        '''
         control_frame = tk.Frame(self.root)
         control_frame.pack(fill=tk.X)
 
@@ -53,6 +57,9 @@ class DrawingApp:
 
 
     def paint(self, event):
+        '''
+        Метод для рисования
+        '''
         if self.last_x and self.last_y:
             self.canvas.create_line(self.last_x, self.last_y, event.x, event.y,
                                     width=self.brush_size_scale.get(), fill=self.pen_color,
@@ -64,17 +71,29 @@ class DrawingApp:
         self.last_y = event.y
 
     def reset(self, event):
+        '''
+        Метод для сброса координат
+        '''
         self.last_x, self.last_y = None, None
 
     def clear_canvas(self):
+        '''
+        Метод для очистки холста
+        '''
         self.canvas.delete("all")
         self.image = Image.new("RGB", (600, 400), "white")
         self.draw = ImageDraw.Draw(self.image)
 
     def choose_color(self):
+        '''
+        Метод для выбора цвета
+        '''
         self.pen_color = colorchooser.askcolor(color=self.pen_color)[1]
 
     def save_image(self):
+        '''
+        Метод для сохранения изображения
+        '''
         file_path = filedialog.asksaveasfilename(filetypes=[('PNG files', '*.png')])
         if file_path:
             if not file_path.endswith('.png'):
@@ -101,6 +120,18 @@ class DrawingApp:
         self.eraser_button.pack(side=tk.LEFT)
         self.brash_button.pack_forget()
 
+    def get_rgb(self, rgb):
+        '''
+        Метод для получения цвета из RGB
+        '''
+        return "#%02x%02x%02x" % rgb
+
+    def pick_color(self, event):
+        '''
+        Метод для выбора цвета из изображения, инструмент "Пипетка"
+        '''
+        copy_color = self.image.getpixel((event.x, event.y))
+        self.pen_color = self.get_rgb(copy_color)
 
 
 def main():
