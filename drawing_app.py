@@ -22,6 +22,8 @@ class DrawingApp:
         self.canvas.bind('<B1-Motion>', self.paint)
         self.canvas.bind('<ButtonRelease-1>', self.reset)
         self.canvas.bind('<Button-3>', self.pick_color)
+        self.root.bind('<Control-s>', lambda event: self.save_image())
+        self.root.bind('<Control-c>', lambda event: self.choose_color())
 
 
     def setup_ui(self):
