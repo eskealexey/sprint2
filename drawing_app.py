@@ -42,6 +42,11 @@ class DrawingApp:
         color_button = tk.Button(control_frame, text="Выбрать цвет", command=self.choose_color)
         color_button.pack(side=tk.LEFT)
 
+        label_color = tk.Label(control_frame, text='цвет:')
+        label_color.pack(side=tk.LEFT)
+        self.label_color_value = tk.Label(control_frame,  bg='black', width=10)
+        self.label_color_value.pack(side=tk.LEFT)
+
         save_button = tk.Button(control_frame, text="Сохранить", command=self.save_image)
         save_button.pack(side=tk.LEFT)
 
@@ -91,6 +96,7 @@ class DrawingApp:
         Метод для выбора цвета
         '''
         self.pen_color = colorchooser.askcolor(color=self.pen_color)[1]
+        self.label_color_value.config(bg=self.pen_color)
 
     def save_image(self):
         '''
@@ -134,6 +140,7 @@ class DrawingApp:
         '''
         copy_color = self.image.getpixel((event.x, event.y))
         self.pen_color = self.get_rgb(copy_color)
+        self.label_color_value.config(bg=self.pen_color)
 
 
 def main():
