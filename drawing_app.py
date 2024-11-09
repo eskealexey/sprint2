@@ -50,6 +50,9 @@ class DrawingApp:
         save_button = tk.Button(control_frame, text="Сохранить", command=self.save_image)
         save_button.pack(side=tk.LEFT)
 
+        button_size_change = tk.Button(control_frame, text="Изменить размер", command=self.change_size)
+        button_size_change.pack(side=tk.RIGHT)
+
         self.brush_size_scale = tk.Scale(control_frame2, from_=1, to=10, orient=tk.HORIZONTAL)
         self.brush_size_scale.pack(side=tk.LEFT)
 
@@ -141,6 +144,19 @@ class DrawingApp:
         copy_color = self.image.getpixel((event.x, event.y))
         self.pen_color = self.get_rgb(copy_color)
         self.label_color_value.config(bg=self.pen_color)
+
+    def change_size(self):
+        '''
+        Метод для изменения размера холста
+        '''
+        w = tk.simpledialog.askinteger(title="Изменить размер холста", prompt='Введите ширину'
+                                                 , minvalue=100, maxvalue=1000)
+        h = tk.simpledialog.askinteger(title="Изменить размер холста", prompt='Введите высоту'
+                                                 , minvalue=100, maxvalue=1000)
+        self.canvas.config(width=w, height=h)
+        self.image = Image.new("RGB", (w, h), "white")
+        self.draw = ImageDraw.Draw(self.image)
+        self.canvas.delete("all")
 
 
 def main():
