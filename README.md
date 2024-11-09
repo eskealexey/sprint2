@@ -94,5 +94,5 @@
 - Горячие клавиши для быстрых действий: <Сохранение изображения>(ctrl+s), <Выбор цвета кисти>(ctrl+c)<br>
 - Предварительный просмотр цвета кисти<br>
 </b>
-  <img crs="https://github.com/user-attachments/assets/caf62002-47b4-4576-92c4-0eb230f54b3c">
+  <img src="https://github.com/user-attachments/assets/caf62002-47b4-4576-92c4-0eb230f54b3c">
 ![изображение](https://github.com/user-attachments/assets/caf62002-47b4-4576-92c4-0eb230f54b3c)
