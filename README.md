@@ -93,6 +93,7 @@
 - Пипетка для выбора цвета с холста<br>
 - Горячие клавиши для быстрых действий: <Сохранение изображения>(ctrl+s), <Выбор цвета кисти>(ctrl+c)<br>
 - Предварительный просмотр цвета кисти<br>
+- Изменение размера холста<br>  
 </b>
-  <img src="https://github.com/user-attachments/assets/caf62002-47b4-4576-92c4-0eb230f54b3c">
+  <p></p><img src="https://github.com/user-attachments/assets/caf62002-47b4-4576-92c4-0eb230f54b3c"></p>
 
