@@ -1,5 +1,8 @@
 import tkinter as tk
+from shutil import which
 from tkinter import colorchooser, filedialog, messagebox
+from tkinter.constants import NW
+
 from PIL import Image, ImageDraw
 
 
@@ -26,6 +29,7 @@ class DrawingApp:
         self.root.bind('<Control-c>', lambda event: self.choose_color())
 
 
+
     def setup_ui(self):
         '''
         Инициализация графического интерфейса
@@ -42,7 +46,7 @@ class DrawingApp:
         color_button = tk.Button(control_frame, text="Выбрать цвет", command=self.choose_color)
         color_button.pack(side=tk.LEFT)
 
-        label_color = tk.Label(control_frame, text='цвет:')
+        label_color = tk.Label(control_frame, text='цвет кисти:')
         label_color.pack(side=tk.LEFT)
         self.label_color_value = tk.Label(control_frame,  bg='black', width=10)
         self.label_color_value.pack(side=tk.LEFT)
@@ -65,6 +69,11 @@ class DrawingApp:
         self.brash_button = tk.Button(control_frame2, text="Кисть", command=self.drawing)
         self.brash_button.pack_forget()
 
+        button_text = tk.Button(control_frame2, text="Текст", command=self.set_text)
+        button_text.pack(side=tk.RIGHT)
+
+        button_change_canvas = tk.Button(control_frame2, text="Изменить фон", command=self.change_canvas)
+        button_change_canvas.pack(side=tk.RIGHT)
 
     def paint(self, event):
         '''
@@ -157,6 +166,28 @@ class DrawingApp:
         self.image = Image.new("RGB", (w, h), "white")
         self.draw = ImageDraw.Draw(self.image)
         self.canvas.delete("all")
+
+    def set_text(self):
+        '''
+        Метод установления текста
+        '''
+        self.text_ = tk.simpledialog.askstring(title="Вставить текст", prompt='Введите текст')
+        self.root.bind('<Button-1>', lambda event: self.paste_canv(self.text_, event))
+
+    def paste_canv(self, text, event):
+        '''
+        Метод для вставки текста на холст
+        '''
+        self.canvas.create_text(event.x, event.y, text=text, fill=self.pen_color, anchor=NW)
+        self.text_ = ''
+
+    def change_canvas(self):
+        '''
+        Метод для измения цвета холста
+        '''
+        new_color = colorchooser.askcolor()
+        self.canvas.config(background=new_color[1])
+
 
 
 def main():
